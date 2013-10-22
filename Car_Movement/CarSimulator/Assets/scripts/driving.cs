@@ -14,6 +14,8 @@ public class driving : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{	
+		print ("Speed " + drivingSpeed);
+		
 		//move forward
 		if (Input.GetKey("mouse 0")) 
 		{
