@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class speedometerScript : MonoBehaviour {
+public class speedometerScript : MonoBehaviour 
+{
 	
-	float mph;
+	int mph;
 	
 	Camera playerCamera;
 	
@@ -11,23 +12,37 @@ public class speedometerScript : MonoBehaviour {
 	
 	GUIText speedometerDisplay;
 	
+	
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		
 		playerCamera = Camera.main;
 		
-		speedometer = GameObject.Find ("speedometer");
+		speedometer = GameObject.Find ("Gtext");
 		
 		speedometerDisplay = speedometer.GetComponent<GUIText>();
+	
+		StartCoroutine("MPHdisplay");
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
 	
-		mph = playerCamera.velocity.magnitude*2;
+	// Update is called once per frame
+	void Update () 
+	{
 		
+		//StartCoroutine("MPHdisplay");
+		//mph = (int)playerCamera.velocity.magnitude *2;
+		//speedometerDisplay.text = mph + " MPH";
+	}
+	
+	
+	IEnumerator MPHdisplay()
+	{
+		mph = (int)playerCamera.velocity.magnitude * 2;
 		speedometerDisplay.text = mph + " MPH";
-		
+		yield return new WaitForSeconds(.5f);
+		StartCoroutine("MPHdisplay");
 	}
 }
