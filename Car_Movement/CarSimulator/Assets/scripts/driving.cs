@@ -4,7 +4,7 @@ using System.Collections;
 public class driving : MonoBehaviour 
 {
 	float drivingSpeed = 35;
-	float turningSpeed = 40;
+	float turningSpeed = 50;
 	public bool onIce = false;
 	float iceSpeedModifier;
 	public float randomizeTurn = 0;
@@ -34,6 +34,7 @@ public class driving : MonoBehaviour
 	}
 	
 	
+	
 	// Update is called once per frame
 	void Update () 
 	{	
@@ -42,7 +43,19 @@ public class driving : MonoBehaviour
 			randomizeTurn = 0;
 		}
 		
-		drivingSpeed += iceSpeedModifier;
+		
+
+		if (rigidbody.velocity.magnitude < 10) 
+		{
+			drivingSpeed += iceSpeedModifier;
+		}
+		if (rigidbody.velocity.magnitude > 10) 
+		{
+			drivingSpeed = drivingSpeed + 0;
+		}
+		
+		
+		
 		
 		//move forward
 		if (Input.GetKey("mouse 1")) 
@@ -63,7 +76,7 @@ public class driving : MonoBehaviour
 		}
 		
 		
-		
+		//turning
 		if (rigidbody.velocity.magnitude > 8) 
 		{
 			float turn = Input.GetAxis("Horizontal") * turningSpeed * Time.deltaTime;//turning speed at 40
@@ -104,13 +117,13 @@ public class driving : MonoBehaviour
 		//neutral
 		if (Input.GetKeyUp("mouse 1") && onIce == false)
 		{
-			rigidbody.drag = .5f;
+			rigidbody.drag = .2f;
 		}
 		
 		//braking
 		if (Input.GetKeyDown("mouse 0") && onIce == false) 
 		{
-			rigidbody.drag = 2.5f;
+			rigidbody.drag = .8f;
 		}
 	}
 	
@@ -135,7 +148,7 @@ public class driving : MonoBehaviour
 		//value of speed increase per frame while on ice
 		iceSpeedModifier = 0.4f;
 			
-		turningSpeed = 60;
+		turningSpeed = 65;
 			
 		rigidbody.drag = 4;
 	}
@@ -147,7 +160,7 @@ public class driving : MonoBehaviour
 		onIce = false;
 		randomizeTurn = 0;
 		iceSpeedModifier = 0;
-		turningSpeed = 40;
+		turningSpeed = 50;
 		drivingSpeed = 35;
 	}
 }
